@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     float val1 = strtof(argv[1], NULL);
     float val2 = strtof(argv[3], NULL);
 
-    // perform operation according to user input operand
+    // perform operation according to user input operator
     feclearexcept(FE_ALL_EXCEPT); // clear all IEEE-754 exceptions before performing operation
     float res;
     switch(op)
