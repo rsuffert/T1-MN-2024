@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <fenv.h>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     // test user input
     if (argc != 4) 
     {
