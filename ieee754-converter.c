@@ -26,5 +26,5 @@ int main(int argc, char *argv[]) {
 
     printf("Result: %f\n", res);
 
-    return 0; // Return 0 to indicate successful execution
+    return 0;
 }
