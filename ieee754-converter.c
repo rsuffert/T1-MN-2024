@@ -3,18 +3,20 @@
 #include <fenv.h>
 
 int main(int argc, char *argv[]) {
+    // test user input
     if (argc != 4) 
     {
         printf("Error: must provide three arguments: a number, an operand and another number.\n");
         return 1;
     }
 
+    // convert user input
     char op    = argv[2][0];
     float val1 = strtof(argv[1], NULL);
     float val2 = strtof(argv[3], NULL);
 
+    // perform operation according to user input operand
     feclearexcept(FE_ALL_EXCEPT); // clear all IEEE-754 exceptions before performing operation
-
     float res;
     switch(op)
     {
@@ -27,6 +29,7 @@ int main(int argc, char *argv[]) {
             return 1;
     }
 
+    // results
     printf("\nResult: %f %c %f = %f\n\n", val1, op, val2, res);
     printf("IEEE-754 error flags:\n");
     printf("\tFE_DIVBYZERO = %d\n", fetestexcept(FE_DIVBYZERO)==0? 0 : 1);
