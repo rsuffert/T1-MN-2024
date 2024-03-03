@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <fenv.h>
 
+void print_IEEE754_representation(float num);
+
 int main(int argc, char* argv[])
 {
     // test user input
@@ -31,13 +33,28 @@ int main(int argc, char* argv[])
     }
 
     // results
-    printf("\nResult: %f %c %f = %f\n\n", val1, op, val2, res);
-    printf("IEEE-754 error flags:\n");
+    printf("\nResult (in decimals): %f %c %f = %f\n", val1, op, val2, res);
+
+    printf("\nIEEE-754 binary representations:\n");
+    printf("\tval1   = ");
+    print_IEEE754_representation(val1);
+    printf("\tval2   = ");
+    print_IEEE754_representation(val2);
+    printf("\tresult = ");
+    print_IEEE754_representation(res);
+    
+    printf("\nIEEE-754 error flags:\n");
     printf("\tFE_DIVBYZERO = %d\n", fetestexcept(FE_DIVBYZERO)==0? 0 : 1);
     printf("\tFE_INEXACT   = %d\n", fetestexcept(FE_INEXACT)==0?   0 : 1);
     printf("\tFE_INVALID   = %d\n", fetestexcept(FE_INVALID)==0?   0 : 1);
     printf("\tFE_OVERFLOW  = %d\n", fetestexcept(FE_OVERFLOW)==0?  0 : 1);
-    printf("\tFE_UNDERFLOW = %d\n", fetestexcept(FE_UNDERFLOW)==0? 0 : 1);
+    printf("\tFE_UNDERFLOW = %d\n\n", fetestexcept(FE_UNDERFLOW)==0? 0 : 1);
 
     return 0;
+}
+
+void print_IEEE754_representation(float num)
+{
+    // TODO: implement algorithm to actually print the IEEE-754 binary representation of the value passed as parameter
+    printf("0 00000000 0000000000000000000000\n");
 }
