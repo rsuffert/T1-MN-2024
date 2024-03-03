@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <fenv.h>
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     // test user input
     if (argc != 4) 
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
         case '+': res = val1 + val2; break;
         case '-': res = val1 - val2; break;
         case '/': res = val1 / val2; break;
-        case '*': res = val1 * val2; break;
+        case 'x': res = val1 * val2; break;
         default: 
             printf("Invalid operation: '%c'.\n", op);
             return 1;
