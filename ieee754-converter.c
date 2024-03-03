@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fenv.h>
+#include <stdint.h>
 
 void print_IEEE754_representation(float num);
 
@@ -33,7 +34,12 @@ int main(int argc, char* argv[])
     }
 
     // results
-    printf("\nResult (in decimals): %f %c %f = %f\n", val1, op, val2, res);
+    printf("\nIEEE-754 error flags:\n");
+    printf("\tFE_DIVBYZERO = %d\n", fetestexcept(FE_DIVBYZERO)==0?  0 : 1);
+    printf("\tFE_INEXACT   = %d\n", fetestexcept(FE_INEXACT)==0?    0 : 1);
+    printf("\tFE_INVALID   = %d\n", fetestexcept(FE_INVALID)==0?    0 : 1);
+    printf("\tFE_OVERFLOW  = %d\n", fetestexcept(FE_OVERFLOW)==0?   0 : 1);
+    printf("\tFE_UNDERFLOW = %d\n", fetestexcept(FE_UNDERFLOW)==0?  0 : 1);
 
     printf("\nIEEE-754 binary representations:\n");
     printf("\tval1   = ");
@@ -42,19 +48,30 @@ int main(int argc, char* argv[])
     print_IEEE754_representation(val2);
     printf("\tresult = ");
     print_IEEE754_representation(res);
-    
-    printf("\nIEEE-754 error flags:\n");
-    printf("\tFE_DIVBYZERO = %d\n", fetestexcept(FE_DIVBYZERO)==0? 0 : 1);
-    printf("\tFE_INEXACT   = %d\n", fetestexcept(FE_INEXACT)==0?   0 : 1);
-    printf("\tFE_INVALID   = %d\n", fetestexcept(FE_INVALID)==0?   0 : 1);
-    printf("\tFE_OVERFLOW  = %d\n", fetestexcept(FE_OVERFLOW)==0?  0 : 1);
-    printf("\tFE_UNDERFLOW = %d\n\n", fetestexcept(FE_UNDERFLOW)==0? 0 : 1);
+
+    printf("\nResult (in decimals): %f %c %f = %f\n\n", val1, op, val2, res);
 
     return 0;
 }
 
 void print_IEEE754_representation(float num)
 {
-    // TODO: implement algorithm to actually print the IEEE-754 binary representation of the value passed as parameter
-    printf("0 00000000 0000000000000000000000\n");
+    // extract sign, exponent and mantissa bits
+    uint32_t* ptr = (uint32_t*)&num;
+    uint32_t sign = (*ptr >> 31) & 1;
+    uint32_t exponent = (*ptr >> 23) & 0xFF;
+    uint32_t mantissa = *ptr & 0x7FFFFF;
+
+    // print sign bit
+    printf("%d ", sign);
+
+    // print exponent bits
+    for (int i = 7; i >= 0; i--)
+        printf("%d", (exponent >> i) & 1);
+    printf(" ");
+
+    // print mantissa bits
+    for (int i = 22; i >= 0; i--)
+        printf("%d", (mantissa >> i) & 1);
+    printf("\n");
 }
