@@ -34,22 +34,23 @@ int main(int argc, char* argv[])
     }
 
     // results
-    printf("\nIEEE-754 error flags:\n");
-    printf("\tFE_DIVBYZERO = %d\n", fetestexcept(FE_DIVBYZERO)==0?  0 : 1);
-    printf("\tFE_INEXACT   = %d\n", fetestexcept(FE_INEXACT)==0?    0 : 1);
-    printf("\tFE_INVALID   = %d\n", fetestexcept(FE_INVALID)==0?    0 : 1);
-    printf("\tFE_OVERFLOW  = %d\n", fetestexcept(FE_OVERFLOW)==0?   0 : 1);
-    printf("\tFE_UNDERFLOW = %d\n", fetestexcept(FE_UNDERFLOW)==0?  0 : 1);
+    printf("\n1. IEEE-754 error flags:\n");
+    printf("\t1.1. FE_DIVBYZERO = %d\n", fetestexcept(FE_DIVBYZERO)==0?  0 : 1);
+    printf("\t1.2. FE_INEXACT   = %d\n", fetestexcept(FE_INEXACT)==0?    0 : 1);
+    printf("\t1.3. FE_INVALID   = %d\n", fetestexcept(FE_INVALID)==0?    0 : 1);
+    printf("\t1.4. FE_OVERFLOW  = %d\n", fetestexcept(FE_OVERFLOW)==0?   0 : 1);
+    printf("\t1.5. FE_UNDERFLOW = %d\n", fetestexcept(FE_UNDERFLOW)==0?  0 : 1);
 
-    printf("\nIEEE-754 binary representations:\n");
-    printf("\tval1   = ");
+    printf("\n2. IEEE-754 binary representations (S = sign, E = exponent & M = mantissa):\n");
+    printf("\t\t%7s%5s%16s\n", "S", "E", "M");
+    printf("\t2.1. val1   = ");
     print_IEEE754_representation(val1);
-    printf("\tval2   = ");
+    printf("\t2.2. val2   = ");
     print_IEEE754_representation(val2);
-    printf("\tresult = ");
+    printf("\t2.3. result = ");
     print_IEEE754_representation(res);
 
-    printf("\nResult (in decimals): %f %c %f = %f\n\n", val1, op, val2, res);
+    printf("\n3. Result (in decimals): %f %c %f = %f\n\n", val1, op, val2, res);
 
     return 0;
 }
