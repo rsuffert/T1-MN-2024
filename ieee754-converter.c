@@ -2,12 +2,9 @@
 #include <stdlib.h>
 #include <fenv.h>
 #include <stdint.h>
-#include <stdbool.h>
-#include <ctype.h>
 #include <string.h>
 
 void print_IEEE754_representation(const float num);
-bool is_numeric(const char* str);
 
 int main(int argc, char* argv[])
 {
@@ -20,11 +17,6 @@ int main(int argc, char* argv[])
     if (strlen(argv[2]) != 1)
     {
         printf("\n[ERROR] Received operator should be one character long. Valid operators are: '+', '-', '/', and 'x'.\n\n");
-        return 1;
-    }
-    if (!is_numeric(argv[1]) || !is_numeric(argv[3]))
-    {
-        printf("\n[ERROR] One or both of the received operands are not numeric. Please check your operands and try again.\n\n");
         return 1;
     }
 
@@ -91,15 +83,4 @@ void print_IEEE754_representation(const float num)
     for (int i = 22; i >= 0; i--)
         printf("%d", (mantissa >> i) & 1);
     printf("\n");
-}
-
-bool is_numeric(const char* str)
-{
-    if (str == NULL || *str == '\0') return false; // check for empty string
-    while (*str != '\0')
-    {
-        if (!isdigit(*str)) return false;
-        str++;
-    }
-    return true;
 }
