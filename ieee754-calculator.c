@@ -22,8 +22,22 @@ int main(int argc, char* argv[])
 
     // access and convert user input
     char  op   = argv[2][0];
-    float val1 = strtof(argv[1], NULL);
-    float val2 = strtof(argv[3], NULL);
+    char* endptr1;
+    float val1 = strtof(argv[1], &endptr1);
+    char* endptr2;
+    float val2 = strtof(argv[3], &endptr2);
+
+    // check if conversions to float were successful
+    if (*endptr1 != '\0')
+    {
+        printf("\n[ERROR] Could not convert first operand to a numeric value. Invalid character: %c.\n\n", *endptr1);
+        return 1;
+    }
+    if (*endptr2 != '\0')
+    {
+        printf("\n[ERROR] Could not convert second operand to a numeric value. Invalid character: %c.\n\n", *endptr2);
+        return 1;
+    }
 
     // perform operation according to user input operator
     feclearexcept(FE_ALL_EXCEPT); // clear all IEEE-754 exceptions before performing operation
